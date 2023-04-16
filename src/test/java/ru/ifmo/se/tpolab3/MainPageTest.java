@@ -1,32 +1,35 @@
 package ru.ifmo.se.tpolab3;
+
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.chrome.ChromeOptions;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
-public class MainPageTest {
+class MainPageTest {
     MainPage mainPage = new MainPage();
 
-    @BeforeAll        public static void setUpAll() {
+    @BeforeAll
+    public static void setUpAll() {
         Configuration.browserSize = "1280x800";
-            SelenideLogger.addListener("allure", new AllureSelenide());
-        }
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
 
-    @BeforeEach        public void setUp() {
+    @BeforeEach
+    public void setUp() {
         // Fix the issue https://github.com/SeleniumHQ/selenium/issues/11750
         Configuration.browserCapabilities = new ChromeOptions().addArguments("--remote-allow-origins=*");
         open("https://www.jetbrains.com/");
     }
 
     @Test
-    public void search() {
+    void search() {
         mainPage.searchButton.click();
 
         $("[data-test='search-input']").sendKeys("Selenium");
@@ -36,18 +39,19 @@ public class MainPageTest {
     }
 
     @Test
-    public void toolsMenu() {
+    void toolsMenu() {
         mainPage.toolsMenu.click();
 
         $("div[data-test='main-submenu']").shouldBe(visible);
     }
 
     @Test
-    public void navigationToAllTools() {
+    void navigationToAllTools() {
         mainPage.seeDeveloperToolsButton.click();
         mainPage.findYourToolsButton.click();
 
         $("#products-page").shouldBe(visible);
 
-        assertEquals("All Developer Tools and Products by JetBrains", Selenide.title());            }
+        assertEquals("All Developer Tools and Products by JetBrains", title());
+    }
 }
