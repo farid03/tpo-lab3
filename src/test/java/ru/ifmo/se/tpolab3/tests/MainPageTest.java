@@ -1,12 +1,15 @@
-package ru.ifmo.se.tpolab3;
+package ru.ifmo.se.tpolab3.tests;
 
 import org.junit.jupiter.api.*;
 import ru.ifmo.se.tpolab3.core.BaseSeleniumTest;
+import ru.ifmo.se.tpolab3.pages.main.MainPage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class MainPageTest extends BaseSeleniumTest {
+
+    // прецедент 1
     @Test
     void search() {
         final String city = "Тольятти";
