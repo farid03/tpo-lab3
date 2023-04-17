@@ -1,57 +1,20 @@
 package ru.ifmo.se.tpolab3;
 
-import com.codeborne.selenide.Configuration;
-import org.openqa.selenium.chrome.ChromeOptions;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import ru.ifmo.se.tpolab3.core.BaseSeleniumTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
 
-class MainPageTest {
-    MainPage mainPage = new MainPage();
-
-    @BeforeAll
-    public static void setUpAll() {
-        Configuration.browserSize = "1280x800";
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-    @BeforeEach
-    public void setUp() {
-        // Fix the issue https://github.com/SeleniumHQ/selenium/issues/11750
-        Configuration.browserCapabilities = new ChromeOptions().addArguments("--remote-allow-origins=*");
-        open("https://www.jetbrains.com/");
-    }
-
+class MainPageTest extends BaseSeleniumTest {
     @Test
     void search() {
-        mainPage.searchButton.click();
+        final String city = "Тольятти";
 
-        $("[data-test='search-input']").sendKeys("Selenium");
-        $("button[data-test='full-search-button']").click();
+        final MainPage mainPage = new MainPage();
+        mainPage.createQuery(city);
+        final var currentTemperature = Integer.parseInt(mainPage.getCurrentTemperature());
 
-        $("input[data-test='search-input']").shouldHave(attribute("value", "Selenium"));
-    }
-
-    @Test
-    void toolsMenu() {
-        mainPage.toolsMenu.click();
-
-        $("div[data-test='main-submenu']").shouldBe(visible);
-    }
-
-    @Test
-    void navigationToAllTools() {
-        mainPage.seeDeveloperToolsButton.click();
-        mainPage.findYourToolsButton.click();
-
-        $("#products-page").shouldBe(visible);
-
-        assertEquals("All Developer Tools and Products by JetBrains", title());
+        assertTrue(-100 <= currentTemperature && currentTemperature <= 100);
     }
 }

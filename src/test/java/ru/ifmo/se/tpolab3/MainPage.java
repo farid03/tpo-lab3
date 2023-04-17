@@ -1,13 +1,31 @@
 package ru.ifmo.se.tpolab3;
-import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import ru.ifmo.se.tpolab3.core.BaseSeleniumPage;
+import ru.ifmo.se.tpolab3.properties.reader.ConfigProvider;
 
-// page_url = https://www.jetbrains.com/
-public class MainPage {
-  public SelenideElement seeDeveloperToolsButton = $x("//*[@data-test-marker='Developer Tools']");
-  public SelenideElement findYourToolsButton = $x("//*[@data-test='suggestion-action']");
-  public SelenideElement toolsMenu = $x("//div[@data-test='main-menu-item' and @data-test-marker = 'Developer Tools']");
-  public SelenideElement searchButton = $("[data-test='site-header-search-action']");
+public class MainPage extends BaseSeleniumPage {
+    @FindBy(xpath = "/html/body/header/div[2]/div[2]/div/div[1]/div[2]/div/input")
+    private WebElement searchField;
+    @FindBy(xpath = "/html/body/section[2]/div[1]/section[2]/div/a[1]/div/div[1]/div[3]/div[1]/span[1]")
+    private WebElement currentTemperature;
+
+    public MainPage() {
+        driver.get(ConfigProvider.URL);
+        PageFactory.initElements(driver, this);
+    }
+
+    public MainPage createQuery(String cityValue) {
+        searchField.click();
+        searchField.sendKeys(cityValue, Keys.ENTER);
+
+        return this;
+    }
+
+    public String getCurrentTemperature() {
+        return currentTemperature.getText();
+    }
 }
