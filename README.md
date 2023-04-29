@@ -5,8 +5,6 @@
 
 ## Use-case диаграмма
 
-![image](https://user-images.githubusercontent.com/68964770/232324732-f29ce00b-a47e-45e4-a1a4-2b1ef3e41352.png)
-
 ![image](https://user-images.githubusercontent.com/68964770/232411277-17767413-c97c-44e8-90ba-8f256ad5024e.png)
 
 ## Прецеденты использования
