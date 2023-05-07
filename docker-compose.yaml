@@ -1,0 +1,26 @@
+version: '3'
+services:
+  selenoid-video:
+    image: "selenoid/video-recorder"
+    network_mode: bridge
+    volumes:
+      - "/opt/selenoid/video:/opt/selenoid/video"
+  selenoid:
+    image: "aerokube/selenoid"
+    network_mode: bridge
+    links:
+      - selenoid-video
+    ports:
+      - "4444:4444"
+    volumes:
+      - "$PWD:/etc/selenoid/"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  selenoid-ui:
+    image: "aerokube/selenoid-ui"
+    network_mode: bridge
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]
+
