@@ -10,7 +10,7 @@ public interface ConfigProvider {
     String USER_LOGIN = readConfig().getString("usersParams.user.login");
 
 
-    static Config readConfig(){
+    static Config readConfig() {
         return ConfigFactory.systemProperties().hasPath("testProfile")
                 ? ConfigFactory.load(ConfigFactory.systemProperties().getString("testProfile"))
                 : ConfigFactory.load("application.conf");

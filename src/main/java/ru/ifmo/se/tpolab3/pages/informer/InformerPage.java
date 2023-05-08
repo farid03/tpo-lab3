@@ -1,6 +1,7 @@
 package ru.ifmo.se.tpolab3.pages.informer;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,13 +11,17 @@ import ru.ifmo.se.tpolab3.pages.informer.components.InformerMenu;
 
 public class InformerPage extends BaseSeleniumPage {
 
-    public final Menu menu = new Menu();
-    private final InformerMenu informerMenu = new InformerMenu();
+    public final Menu menu;
+    private final InformerMenu informerMenu;
     @FindBy(css = "#ins > div > div.b-j-scroller__nav.b-j-scroller__nav_left > i")
     private WebElement leftSlider;
     @FindBy(css = "#ins > div > div.b-j-scroller__nav.b-j-scroller__nav_right > i")
     private WebElement rightSlider;
-    public InformerPage() {
+
+    public InformerPage(WebDriver driver) {
+        super(driver);
+        menu = new Menu(driver);
+        informerMenu = new InformerMenu(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -42,10 +47,12 @@ public class InformerPage extends BaseSeleniumPage {
         informerMenu.simpleInformer.click();
         return this;
     }
+
     public InformerPage goToConstructor() {
         informerMenu.constructor.click();
         return this;
     }
+
     public InformerPage goToPolicy() {
         informerMenu.policy.click();
         return this;

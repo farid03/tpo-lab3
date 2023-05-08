@@ -1,5 +1,6 @@
 package ru.ifmo.se.tpolab3.pages.map.components;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -17,7 +18,8 @@ public class ChartMenu extends BaseSeleniumPage {
     @FindBy(css = "body > header > div.header-subnav > div.header-container.wrap > div > div > a:nth-child(7)")
     public WebElement allergy;
 
-    public ChartMenu() {
+    public ChartMenu(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 }

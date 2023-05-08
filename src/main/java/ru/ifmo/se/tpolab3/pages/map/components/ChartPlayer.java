@@ -1,5 +1,6 @@
 package ru.ifmo.se.tpolab3.pages.map.components;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -17,7 +18,8 @@ public class ChartPlayer extends BaseSeleniumPage {
     @FindBy(css = "#js-map-player > button.btn-control.btn-step-back")
     public WebElement previous;
 
-    public ChartPlayer() {
+    public ChartPlayer(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 }

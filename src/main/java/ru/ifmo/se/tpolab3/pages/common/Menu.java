@@ -1,5 +1,6 @@
 package ru.ifmo.se.tpolab3.pages.common;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -22,29 +23,34 @@ public class Menu extends BaseSeleniumPage {
     @FindBy(css = "body > header > div.header-white > div > div > div.top-middle > div > a:nth-child(5)")
     protected WebElement apps;
 
-    public Menu() {
+    public Menu(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
     public MainPage goToWeather() {
         this.weather.click();
-        return new MainPage();
+        return new MainPage(driver);
     }
+
     public MapPage goToNews() { // TODO
         this.news.click();
-        return new MapPage();
+        return new MapPage(driver);
     }
+
     public MapPage goToMaps() {
         this.maps.click();
-        return new MapPage();
+        return new MapPage(driver);
     }
+
     public InformerPage goToInformers() {
         this.informers.click();
-        return new InformerPage();
+        return new InformerPage(driver);
     }
+
     public AppsPage goToApps() {
         this.apps.click();
-        return new AppsPage();
+        return new AppsPage(driver);
     }
 
 }

@@ -2,9 +2,6 @@ package ru.ifmo.se.tpolab3.tests;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.ifmo.se.tpolab3.core.BaseSeleniumTest;
 import ru.ifmo.se.tpolab3.pages.main.MainPage;
 
@@ -15,11 +12,11 @@ class MapPageTest extends BaseSeleniumTest {
 
     // прецедент 2
     @ParameterizedTest
-    @ValueSource(classes = { ChromeDriver.class, FirefoxDriver.class })
-    void basicMapTest(Class<? extends WebDriver> webDriverClass) {
-        setUpDriver(webDriverClass);
+    @ValueSource(strings = {"chrome", "firefox"})
+    void basicMapTest(String browser) {
+        initDriver(browser);
 
-        final var mainPage = new MainPage();
+        final var mainPage = new MainPage(driver);
 
         var mapPage = mainPage
                 .menu.goToMaps()
@@ -29,16 +26,16 @@ class MapPageTest extends BaseSeleniumTest {
 
         mapPage.nextPlayChartAnimation();
 
-        assertEquals(prevWeatherTime + 3 % 24, mapPage.getCurrentWeatherTimeHH());
+        assertEquals((prevWeatherTime + 3) % 24, mapPage.getCurrentWeatherTimeHH());
     }
 
     // прецедент 3
     @ParameterizedTest
-    @ValueSource(classes = { ChromeDriver.class, FirefoxDriver.class })
-    void animationTest(Class<? extends WebDriver> webDriverClass) throws InterruptedException {
-        setUpDriver(webDriverClass);
+    @ValueSource(strings = {"chrome", "firefox"})
+    void animationTest(String browser) throws InterruptedException {
+        initDriver(browser);
 
-        final var mainPage = new MainPage()
+        final var mainPage = new MainPage(driver)
                 .menu.goToMaps()
                 .selectWindChartType()
                 .playChartAnimation();

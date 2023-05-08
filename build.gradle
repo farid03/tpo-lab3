@@ -43,6 +43,7 @@ dependencies {
 }
 
 test {
+    maxParallelForks 5
     useJUnitPlatform()
     dependsOn pmdMain, pmdTest
     finalizedBy jacocoTestReport

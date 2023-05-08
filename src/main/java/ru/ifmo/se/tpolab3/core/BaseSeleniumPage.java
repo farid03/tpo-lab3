@@ -6,10 +6,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 abstract public class BaseSeleniumPage {
-    protected static WebDriver driver;
-    protected static WebDriverWait wait;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
 
-    public static void setDriver(final WebDriver webDriver){
+    public BaseSeleniumPage(final WebDriver webDriver) {
         driver = webDriver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
