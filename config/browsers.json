@@ -15,7 +15,7 @@
       "latest": {
         "image": "selenoid/firefox:latest",
         "port": "4444",
-        "path": "/"
+        "path": "/wd/hub"
       }
     }
   }

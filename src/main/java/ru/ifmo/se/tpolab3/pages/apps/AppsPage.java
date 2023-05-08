@@ -8,6 +8,8 @@ import ru.ifmo.se.tpolab3.core.BaseSeleniumPage;
 import ru.ifmo.se.tpolab3.pages.apps.components.AppsMenu;
 import ru.ifmo.se.tpolab3.pages.common.Menu;
 
+import static java.lang.Thread.sleep;
+
 public class AppsPage extends BaseSeleniumPage {
 
     private final Menu menu = new Menu();
@@ -21,8 +23,9 @@ public class AppsPage extends BaseSeleniumPage {
         PageFactory.initElements(driver, this);
     }
 
-    public AppsPage installExtension() {
+    public AppsPage installExtension() throws InterruptedException {
         pcChromeExtensionInstallLink.click();
+        sleep(1000);
         wait.until(ExpectedConditions.elementToBeClickable(pcChromeExtensionInstallButton));
         pcChromeExtensionInstallButton.click();
         return this;

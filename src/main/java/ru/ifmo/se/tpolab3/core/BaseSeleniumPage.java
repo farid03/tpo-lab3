@@ -11,6 +11,6 @@ abstract public class BaseSeleniumPage {
 
     public static void setDriver(final WebDriver webDriver){
         driver = webDriver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 }

@@ -1,7 +1,12 @@
 package ru.ifmo.se.tpolab3.tests;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.ifmo.se.tpolab3.core.BaseSeleniumTest;
 import ru.ifmo.se.tpolab3.pages.main.MainPage;
@@ -14,8 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppPageTest extends BaseSeleniumTest {
     // прецедент 10
-    @Test
-    void extensionInstallTest() throws InterruptedException {
+
+    @ParameterizedTest
+    @ValueSource(classes = { ChromeDriver.class, FirefoxDriver.class })
+    void extensionInstallTest(Class<? extends WebDriver> webDriverClass) throws InterruptedException {
+        setUpDriver(webDriverClass);
+
         var page = new MainPage()
                 .menu.goToApps()
                 .installExtension();
