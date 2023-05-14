@@ -16,33 +16,38 @@ import java.util.concurrent.TimeUnit;
 abstract public class BaseSeleniumTest {
     protected WebDriver driver;
 
-    public void initDriver(String browser) {
+    public void initDriver(final String browser) {
         AbstractDriverOptions<?> options = null;
 
-        if (browser.equalsIgnoreCase("chrome")) {
+        if ("chrome".equalsIgnoreCase(browser)) {
             options = new ChromeOptions();
-        } else if (browser.equalsIgnoreCase("firefox")) {
+        } else if ("firefox".equalsIgnoreCase(browser)) {
             options = new FirefoxOptions();
         }
 
         assert options != null;
-        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
-            put("name", "Test badge...");
-            put("sessionTimeout", "15m");
-            put("env", new ArrayList<String>() {{
-                add("TZ=UTC");
-            }});
-            put("labels", new HashMap<String, Object>() {{
-                put("manual", "true");
-            }});
-            put("enableVideo", true);
-            put("enableVNC", true);
-        }});
+
+        final var capabilities = new HashMap<String, Object>();
+        capabilities.put("name", "Test badge...");
+        capabilities.put("sessionTimeout", "15m");
+
+        final var envs = new ArrayList<String>();
+        envs.add("TZ=UTC");
+        capabilities.put("env", envs);
+
+        final var labels = new HashMap<String, Object>();
+        labels.put("manual", "true");
+        capabilities.put("labels", labels);
+
+        capabilities.put("enableVideo", true);
+        capabilities.put("enableVNC", true);
+
+        options.setCapability("selenoid:options", capabilities);
 
         try {
             driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+        } catch (MalformedURLException ignored) {
+
         }
 
         driver.manage().window().maximize();

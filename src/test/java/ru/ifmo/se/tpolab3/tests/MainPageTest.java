@@ -13,7 +13,7 @@ class MainPageTest extends BaseSeleniumTest {
     // прецедент 1
     @ParameterizedTest
     @ValueSource(strings = {"chrome", "firefox"})
-    void search(String browser) throws InterruptedException {
+    void search(final String browser) throws InterruptedException {
         initDriver(browser);
 
         final String city = "Тольятти";

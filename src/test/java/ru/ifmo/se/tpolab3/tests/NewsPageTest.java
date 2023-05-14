@@ -12,21 +12,21 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NewsPageTest extends BaseSeleniumTest {
+class NewsPageTest extends BaseSeleniumTest {
     @ParameterizedTest
     @ValueSource(strings = {"chrome", "firefox"})
-    void basicNewsPageTest(String browser) {
+    void basicNewsPageTest(final String browser) {
         initDriver(browser);
 
         final var mainPage = new MainPage(driver);
 
-        var newsPage = mainPage.menu
+        final var newsPage = mainPage.menu
                 .goToNews();
 
-        var wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(webDriver -> ((JavascriptExecutor) webDriver)
-                .executeScript("return document.readyState")
-                .equals("complete")
+        final var wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(webDriver ->
+                "complete".equals(((JavascriptExecutor) webDriver)
+                .executeScript("return document.readyState"))
         );
 
         assertEquals(newsPage.getCurrentUrl(), ConfigProvider.NEWS_PAGE_URL);
@@ -34,12 +34,15 @@ public class NewsPageTest extends BaseSeleniumTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"chrome", "firefox"})
-    void basicMainNewsArticleTest(String browser) {
+    void basicMainNewsArticleTest(final String browser) {
         initDriver(browser);
 
         final var mainPage = new MainPage(driver);
 
-        var newsPage = mainPage.menu
-                .goToNews();
+        final var newsPage = mainPage.menu
+                .goToNews()
+                .clickMainNewsArticle();
+
+        assertEquals(newsPage.getCurrentUrl(), ConfigProvider.TEST_MAIN_NEWS_PAGE_URL);
     }
 }

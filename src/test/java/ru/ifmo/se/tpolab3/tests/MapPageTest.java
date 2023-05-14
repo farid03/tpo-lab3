@@ -4,6 +4,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.ifmo.se.tpolab3.core.BaseSeleniumTest;
 import ru.ifmo.se.tpolab3.pages.main.MainPage;
+import ru.ifmo.se.tpolab3.properties.reader.ConfigProvider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,16 +13,16 @@ class MapPageTest extends BaseSeleniumTest {
     // прецедент 2
     @ParameterizedTest
     @ValueSource(strings = {"chrome", "firefox"})
-    void basicMapTest(String browser) {
+    void basicMapTest(final String browser) {
         initDriver(browser);
 
         final var mainPage = new MainPage(driver);
 
-        var mapPage = mainPage
+        final var mapPage = mainPage
                 .menu.goToMaps()
                 .selectCloudCoverChartType();
 
-        var prevWeatherTime = mapPage.getCurrentWeatherTimeHH();
+        final var prevWeatherTime = mapPage.getCurrentWeatherTimeHH();
 
         mapPage.nextPlayChartAnimation();
 
@@ -31,12 +32,15 @@ class MapPageTest extends BaseSeleniumTest {
     // прецедент 3
     @ParameterizedTest
     @ValueSource(strings = {"chrome", "firefox"})
-    void animationTest(String browser) {
+    void animationTest(final String browser) {
         initDriver(browser);
 
-        final var mainPage = new MainPage(driver)
+        final var mainPage =
+                new MainPage(driver)
                 .menu.goToMaps()
                 .selectWindChartType()
                 .playChartAnimation();
+
+        assertEquals(mainPage.getCurrentUrl(), ConfigProvider.MAPS_WIND_PAGE_URL);
     }
 }

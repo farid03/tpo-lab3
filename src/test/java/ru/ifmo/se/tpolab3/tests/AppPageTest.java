@@ -13,22 +13,23 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class AppPageTest extends BaseSeleniumTest {
+class AppPageTest extends BaseSeleniumTest {
     // прецедент 10
 
     @ParameterizedTest
     @ValueSource(strings = {"chrome", "firefox"})
-    void extensionInstallTest(String browser) throws InterruptedException {
+    void extensionInstallTest(final String browser) throws InterruptedException {
         initDriver(browser);
 
-        var page = new MainPage(driver)
+//        var page =
+                new MainPage(driver)
                 .menu.goToApps()
                 .installExtension();
 
-        var wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(webDriver -> ((JavascriptExecutor) webDriver)
-                .executeScript("return document.readyState")
-                .equals("complete")
+        final var wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(webDriver ->
+                "complete".equals(((JavascriptExecutor) webDriver)
+                .executeScript("return document.readyState"))
         );
 
         assertEquals(driver.getCurrentUrl(), ConfigProvider.BROWSER_EXTENSION_URL);
