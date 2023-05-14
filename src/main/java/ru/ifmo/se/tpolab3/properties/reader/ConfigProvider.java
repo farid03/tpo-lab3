@@ -5,10 +5,9 @@ import com.typesafe.config.ConfigFactory;
 
 public interface ConfigProvider {
     Config CONFIG = readConfig();
-    String URL = readConfig().getString("url");
-    String EXTENSION_URL = readConfig().getString("extensionUrl");
-    String USER_LOGIN = readConfig().getString("usersParams.user.login");
-
+    String MAIN_PAGE_URL = readConfig().getString("pages.main.url");
+    String BROWSER_EXTENSION_URL = readConfig().getString("pages.extension.url");
+    String NEWS_PAGE_URL = readConfig().getString("pages.news.url");
 
     static Config readConfig() {
         return ConfigFactory.systemProperties().hasPath("testProfile")

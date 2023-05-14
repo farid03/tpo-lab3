@@ -11,6 +11,10 @@ abstract public class BaseSeleniumPage {
 
     public BaseSeleniumPage(final WebDriver webDriver) {
         driver = webDriver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+    }
+
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 }

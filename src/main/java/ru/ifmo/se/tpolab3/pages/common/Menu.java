@@ -9,18 +9,19 @@ import ru.ifmo.se.tpolab3.pages.apps.AppsPage;
 import ru.ifmo.se.tpolab3.pages.informer.InformerPage;
 import ru.ifmo.se.tpolab3.pages.main.MainPage;
 import ru.ifmo.se.tpolab3.pages.map.MapPage;
+import ru.ifmo.se.tpolab3.pages.news.NewsPage;
 
 public class Menu extends BaseSeleniumPage {
 
-    @FindBy(css = "body > header > div.header-white > div > div > div.top-middle > div > a:nth-child(1)")
+    @FindBy(css = ".js-menu-link-weather")
     protected WebElement weather;
-    @FindBy(css = "body > header > div.header-white > div > div > div.top-middle > div > a:nth-child(2)")
+    @FindBy(css = ".js-menu-link-news")
     protected WebElement news;
-    @FindBy(css = "body > header > div.header-white > div > div > div.top-middle > div > a:nth-child(3)")
+    @FindBy(css = ".js-menu-link-maps")
     protected WebElement maps;
-    @FindBy(css = "body > header > div.header-white > div > div > div.top-middle > div > a:nth-child(4)")
+    @FindBy(css = ".js-menu-link-informers")
     protected WebElement informers;
-    @FindBy(css = "body > header > div.header-white > div > div > div.top-middle > div > a:nth-child(5)")
+    @FindBy(css = ".js-menu-link-soft")
     protected WebElement apps;
 
     public Menu(WebDriver driver) {
@@ -33,23 +34,26 @@ public class Menu extends BaseSeleniumPage {
         return new MainPage(driver);
     }
 
-    public MapPage goToNews() { // TODO
+    public NewsPage goToNews() {
         this.news.click();
-        return new MapPage(driver);
+        return new NewsPage(driver);
     }
 
     public MapPage goToMaps() {
-        this.maps.click();
+//        this.maps.click();
+        driver.get("https://www.gismeteo.ru/maps/");
         return new MapPage(driver);
     }
 
     public InformerPage goToInformers() {
-        this.informers.click();
+//        this.informers.click();
+        driver.get("https://www.gismeteo.ru/informers/");
         return new InformerPage(driver);
     }
 
     public AppsPage goToApps() {
-        this.apps.click();
+//        this.apps.click();
+        driver.get("https://www.gismeteo.ru/soft/");
         return new AppsPage(driver);
     }
 

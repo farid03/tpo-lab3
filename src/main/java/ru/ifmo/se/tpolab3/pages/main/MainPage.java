@@ -24,7 +24,7 @@ public class MainPage extends BaseSeleniumPage {
     public MainPage(WebDriver driver) {
         super(driver);
         menu = new Menu(driver);
-        driver.get(ConfigProvider.URL);
+        driver.get(ConfigProvider.MAIN_PAGE_URL);
         PageFactory.initElements(driver, this);
     }
 

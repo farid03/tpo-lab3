@@ -12,18 +12,16 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-public class AppPageTest extends BaseSeleniumTest {
-    // прецедент 10
-
+public class NewsPageTest extends BaseSeleniumTest {
     @ParameterizedTest
     @ValueSource(strings = {"chrome", "firefox"})
-    void extensionInstallTest(String browser) throws InterruptedException {
+    void basicNewsPageTest(String browser) {
         initDriver(browser);
 
-        var page = new MainPage(driver)
-                .menu.goToApps()
-                .installExtension();
+        final var mainPage = new MainPage(driver);
+
+        var newsPage = mainPage.menu
+                .goToNews();
 
         var wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(webDriver -> ((JavascriptExecutor) webDriver)
@@ -31,6 +29,17 @@ public class AppPageTest extends BaseSeleniumTest {
                 .equals("complete")
         );
 
-        assertEquals(driver.getCurrentUrl(), ConfigProvider.BROWSER_EXTENSION_URL);
+        assertEquals(newsPage.getCurrentUrl(), ConfigProvider.NEWS_PAGE_URL);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "firefox"})
+    void basicMainNewsArticleTest(String browser) {
+        initDriver(browser);
+
+        final var mainPage = new MainPage(driver);
+
+        var newsPage = mainPage.menu
+                .goToNews();
     }
 }

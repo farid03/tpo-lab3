@@ -13,9 +13,9 @@ public class InformerPage extends BaseSeleniumPage {
 
     public final Menu menu;
     private final InformerMenu informerMenu;
-    @FindBy(css = "#ins > div > div.b-j-scroller__nav.b-j-scroller__nav_left > i")
+    @FindBy(css = "div.b-j-scroller__nav:nth-child(2) > i:nth-child(1)")
     private WebElement leftSlider;
-    @FindBy(css = "#ins > div > div.b-j-scroller__nav.b-j-scroller__nav_right > i")
+    @FindBy(css = "div.b-j-scroller__nav:nth-child(3) > i:nth-child(1)")
     private WebElement rightSlider;
 
     public InformerPage(WebDriver driver) {
